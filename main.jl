@@ -98,7 +98,7 @@ for file in files
             # split line into words
             words = split(line)
 
-            if length(words) == 0
+            if length(words) == 0 || startswith(words[1], "//")
                 continue
             end
 
