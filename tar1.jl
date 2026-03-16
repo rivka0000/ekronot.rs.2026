@@ -10,32 +10,33 @@ global logicCounter
 
 function handleAdd()
     global outFile
-    println(outFile, "@SP")
-    println(outFile, "A=M-1") 
-    println(outFile, "D=M")     
-    println(outFile, "A=A-1")   
-    println(outFile, "M=D+M")   
-    println(outFile, "@SP")  
-    println(outFile, "M=M-1")  
+    println(outFile, "@SP") #A=SP=0
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "D=M")   #D=RAM[A]  
+    println(outFile, "A=A-1")   #A=A-1
+    println(outFile, "M=D+M")   #RAM[A]=D+RAM[A]
+    println(outFile, "@SP")  #A=SP
+    println(outFile, "M=M-1")  #SP=SP-1
 end
 
 function handleSub()
     global outFile
-    println(outFile, "@SP")
-    println(outFile, "A=M-1") 
-    println(outFile, "D=M")     
-    println(outFile, "A=A-1")   
-    println(outFile, "M=M-D")   
-    println(outFile, "@SP")  
-    println(outFile, "M=M-1")  
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "D=M")   #D=RAM[A]
+    println(outFile, "A=A-1")   #A=A-1
+    println(outFile, "M=M-D")   #RAM[A]=RAM[A]-D
+    println(outFile, "@SP")  #A=SP
+    println(outFile, "M=M-1")  #SP=SP-1
 end
 
 function handleNeg()
     global outFile
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")       
-    println(outFile, "M=-M")   
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "M=-M")   #RAM[A]=-RAM[A]
 end
+
 
 # logic functions
 
@@ -45,27 +46,27 @@ function handleEq()
     trueLabel = "IFTRUE" * string(logicCounter)
     endLabel = "END" * string(logicCounter)
 
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "D=M")
-    println(outFile, "A=A-1")
-    println(outFile, "D=M-D")
-    println(outFile, "@$trueLabel")
-    println(outFile, "D;JEQ")
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "A=A-1")
-    println(outFile, "M=0")
-    println(outFile, "@$endLabel")
-    println(outFile, "0;JMP")
-    println(outFile, "($trueLabel)")
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "A=A-1")
-    println(outFile, "M=-1")
-    println(outFile, "($endLabel)")
-    println(outFile, "@SP")
-    println(outFile, "M=M-1")
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "D=M") #D=RAM[A]
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "D=M-D") #D=RAM[A]-D
+    println(outFile, "@$trueLabel") #A=trueLabel
+    println(outFile, "D;JEQ") #jumpif_D==0
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "M=0") #RAM[A]=0
+    println(outFile, "@$endLabel") #A=endLabel
+    println(outFile, "0;JMP") #jump
+    println(outFile, "($trueLabel)") #labeltrue
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "M=-1") #RAM[A]=-1
+    println(outFile, "($endLabel)") #labelend
+    println(outFile, "@SP") #A=SP
+    println(outFile, "M=M-1") #SP=SP-1
 
     logicCounter += 1
 end
@@ -74,27 +75,28 @@ function handleGt()
     global outFile, logicCounter
     trueLabel = "IFTRUE" * string(logicCounter)
     endLabel = "END" * string(logicCounter)
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "D=M")
-    println(outFile, "A=A-1")
-    println(outFile, "D=M-D")
-    println(outFile, "@$trueLabel")
-    println(outFile, "D;JGT")
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "A=A-1")
-    println(outFile, "M=0")
-    println(outFile, "@$endLabel")
-    println(outFile, "0;JMP")
-    println(outFile, "($trueLabel)")
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "A=A-1")
-    println(outFile, "M=-1")
-    println(outFile, "($endLabel)")
-    println(outFile, "@SP")
-    println(outFile, "M=M-1")
+
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "D=M") #D=RAM[A]
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "D=M-D") #D=RAM[A]-D
+    println(outFile, "@$trueLabel") #A=trueLabel
+    println(outFile, "D;JGT") #jumpif_D>0
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "M=0") #RAM[A]=0
+    println(outFile, "@$endLabel") #A=endLabel
+    println(outFile, "0;JMP") #jump
+    println(outFile, "($trueLabel)") #labeltrue
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "M=-1") #RAM[A]=-1
+    println(outFile, "($endLabel)") #labelend
+    println(outFile, "@SP") #A=SP
+    println(outFile, "M=M-1") #SP=SP-1
     logicCounter += 1
 end
 
@@ -102,29 +104,31 @@ function handleLt()
     global outFile, logicCounter
     trueLabel = "IFTRUE" * string(logicCounter)
     endLabel = "END" * string(logicCounter)
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "D=M")
-    println(outFile, "A=A-1")
-    println(outFile, "D=M-D")
-    println(outFile, "@$trueLabel")
-    println(outFile, "D;JLT")
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "A=A-1")
-    println(outFile, "M=0")
-    println(outFile, "@$endLabel")
-    println(outFile, "0;JMP")
-    println(outFile, "($trueLabel)")
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "A=A-1")
-    println(outFile, "M=-1")
-    println(outFile, "($endLabel)")
-    println(outFile, "@SP")
-    println(outFile, "M=M-1")
+
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "D=M") #D=RAM[A]
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "D=M-D") #D=RAM[A]-D
+    println(outFile, "@$trueLabel") #A=trueLabel
+    println(outFile, "D;JLT") #jumpif_D<0
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "M=0") #RAM[A]=0
+    println(outFile, "@$endLabel") #A=endLabel
+    println(outFile, "0;JMP") #jump
+    println(outFile, "($trueLabel)") #labeltrue
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "M=-1") #RAM[A]=-1
+    println(outFile, "($endLabel)") #labelend
+    println(outFile, "@SP") #A=SP
+    println(outFile, "M=M-1") #SP=SP-1
     logicCounter += 1
 end
+
 # memory commands
 
 function handlePush(segment, index, fileNameWithoutExtension)
@@ -132,69 +136,67 @@ function handlePush(segment, index, fileNameWithoutExtension)
 
     if segment == "constant"
 
-        println(outFile, "@$index")
-        println(outFile, "D=A")
+        println(outFile, "@$index") #A=index
+        println(outFile, "D=A") #D=index
 
     elseif segment == "local"
 
-        println(outFile, "@LCL")
-        println(outFile, "D=M")
-        println(outFile, "@$index")
-        println(outFile, "A=D+A")
-        println(outFile, "D=M")
+        println(outFile, "@LCL") #A=LCL
+        println(outFile, "D=M") #D=RAM[LCL]
+        println(outFile, "@$index") #A=index
+        println(outFile, "A=D+A") #A=D+A
+        println(outFile, "D=M") #D=RAM[A]
 
     elseif segment == "argument"
 
-        println(outFile, "@ARG")
-        println(outFile, "D=M")
-        println(outFile, "@$index")
-        println(outFile, "A=D+A")
-        println(outFile, "D=M")
+        println(outFile, "@ARG") #A=ARG
+        println(outFile, "D=M") #D=RAM[ARG]
+        println(outFile, "@$index") #A=index
+        println(outFile, "A=D+A") #A=D+A
+        println(outFile, "D=M") #D=RAM[A]
 
     elseif segment == "this"
 
-        println(outFile, "@THIS")
-        println(outFile, "D=M")
-        println(outFile, "@$index")
-        println(outFile, "A=D+A")
-        println(outFile, "D=M")
+        println(outFile, "@THIS") #A=THIS
+        println(outFile, "D=M") #D=RAM[THIS]
+        println(outFile, "@$index") #A=index
+        println(outFile, "A=D+A") #A=D+A
+        println(outFile, "D=M") #D=RAM[A]
 
     elseif segment == "that"
 
-        println(outFile, "@THAT")
-        println(outFile, "D=M")
-        println(outFile, "@$index")
-        println(outFile, "A=D+A")
-        println(outFile, "D=M")
+        println(outFile, "@THAT") #A=THAT
+        println(outFile, "D=M") #D=RAM[THAT]
+        println(outFile, "@$index") #A=index
+        println(outFile, "A=D+A") #A=D+A
+        println(outFile, "D=M") #D=RAM[A]
 
     elseif segment == "temp"
 
-        println(outFile, "@$(5 + index)")
-        println(outFile, "D=M")
+        println(outFile, "@$(5 + index)") #A=5+index
+        println(outFile, "D=M") #D=RAM[A]
 
     elseif segment == "static"
 
-        println(outFile, "@$(fileNameWithoutExtension).$index")
-        println(outFile, "D=M")
+        println(outFile, "@$(fileNameWithoutExtension).$index") #A=static_variable
+        println(outFile, "D=M") #D=RAM[A]
 
     elseif segment == "pointer"
 
         if index == 0
-            println(outFile, "@THIS")
+            println(outFile, "@THIS") #A=THIS
         else
-            println(outFile, "@THAT")
+            println(outFile, "@THAT") #A=THAT
         end
-        println(outFile, "D=M")
-     
-        
+        println(outFile, "D=M") #D=RAM[A]
 
     end
 
-    println(outFile, "@SP")
-    println(outFile, "A=M")
-    println(outFile, "M=D")
-    println(outFile, "@SP")
-    println(outFile, "M=M+1")
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M") #A=RAM[SP]
+    println(outFile, "M=D") #RAM[A]=D
+    println(outFile, "@SP") #A=SP
+    println(outFile, "M=M+1") #SP=SP+1
 end
 
 function handlePop(segment, index, fileNameWithoutExtension)
@@ -202,105 +204,107 @@ function handlePop(segment, index, fileNameWithoutExtension)
 
     if segment == "local"
 
-        println(outFile, "@LCL")
-        println(outFile, "D=M")
-        println(outFile, "@$index")
-        println(outFile, "D=D+A")
-        println(outFile, "@R13")
-        println(outFile, "M=D")
+        println(outFile, "@LCL") #A=LCL
+        println(outFile, "D=M") #D=RAM[LCL]
+        println(outFile, "@$index") #A=index
+        println(outFile, "D=D+A") #D=D+A
+        println(outFile, "@R13") #A=R13
+        println(outFile, "M=D") #RAM[R13]=D
 
     elseif segment == "argument"
 
-        println(outFile, "@ARG")
-        println(outFile, "D=M")
-        println(outFile, "@$index")
-        println(outFile, "D=D+A")
-        println(outFile, "@R13")
-        println(outFile, "M=D")
+        println(outFile, "@ARG") #A=ARG
+        println(outFile, "D=M") #D=RAM[ARG]
+        println(outFile, "@$index") #A=index
+        println(outFile, "D=D+A") #D=D+A
+        println(outFile, "@R13") #A=R13
+        println(outFile, "M=D") #RAM[R13]=D
 
     elseif segment == "this"
 
-        println(outFile, "@THIS")
-        println(outFile, "D=M")
-        println(outFile, "@$index")
-        println(outFile, "D=D+A")
-        println(outFile, "@R13")
-        println(outFile, "M=D")
+        println(outFile, "@THIS") #A=THIS
+        println(outFile, "D=M") #D=RAM[THIS]
+        println(outFile, "@$index") #A=index
+        println(outFile, "D=D+A") #D=D+A
+        println(outFile, "@R13") #A=R13
+        println(outFile, "M=D") #RAM[R13]=D
 
     elseif segment == "that"
 
-        println(outFile, "@THAT")
-        println(outFile, "D=M")
-        println(outFile, "@$index")
-        println(outFile, "D=D+A")
-        println(outFile, "@R13")
-        println(outFile, "M=D")
+        println(outFile, "@THAT") #A=THAT
+        println(outFile, "D=M") #D=RAM[THAT]
+        println(outFile, "@$index") #A=index
+        println(outFile, "D=D+A") #D=D+A
+        println(outFile, "@R13") #A=R13
+        println(outFile, "M=D") #RAM[R13]=D
 
     elseif segment == "temp"
 
-        println(outFile, "@$(5 + index)")
-        println(outFile, "D=A")
-        println(outFile, "@R13")
-        println(outFile, "M=D")
+        println(outFile, "@$(5 + index)") #A=5+index
+        println(outFile, "D=A") #D=A
+        println(outFile, "@R13") #A=R13
+        println(outFile, "M=D") #RAM[R13]=D
 
     elseif segment == "static"
 
-        println(outFile, "@$(fileNameWithoutExtension).$index")
-        println(outFile, "D=A")
-        println(outFile, "@R13")
-        println(outFile, "M=D")
+        println(outFile, "@$(fileNameWithoutExtension).$index") #A=static_variable
+        println(outFile, "D=A") #D=A
+        println(outFile, "@R13") #A=R13
+        println(outFile, "M=D") #RAM[R13]=D
 
     elseif segment == "pointer"
 
         if index == 0
-            println(outFile, "@THIS")
+            println(outFile, "@THIS") #A=THIS
         else
-            println(outFile, "@THAT")
+            println(outFile, "@THAT") #A=THAT
         end
-        println(outFile, "D=A")
-        println(outFile, "@R13")
-        println(outFile, "M=D")
+        println(outFile, "D=A") #D=A
+        println(outFile, "@R13") #A=R13
+        println(outFile, "M=D") #RAM[R13]=D
 
     end
 
-    println(outFile, "@SP")
-    println(outFile, "M=M-1")
-    println(outFile, "A=M")
-    println(outFile, "D=M")
+    println(outFile, "@SP") #A=SP
+    println(outFile, "M=M-1") #SP=SP-1
+    println(outFile, "A=M") #A=RAM[SP]
+    println(outFile, "D=M") #D=RAM[A]
 
-    println(outFile, "@R13")
-    println(outFile, "A=M")
-    println(outFile, "M=D")
+    println(outFile, "@R13") #A=R13
+    println(outFile, "A=M") #A=RAM[R13]
+    println(outFile, "M=D") #RAM[A]=D
 end
+
 
 function handleAnd()
     global outFile
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "D=M")
-    println(outFile, "A=A-1")
-    println(outFile, "M=D&M")
-    println(outFile, "@SP")
-    println(outFile, "M=M-1")
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "D=M") #D=RAM[A]
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "M=D&M") #RAM[A]=D&M
+    println(outFile, "@SP") #A=SP
+    println(outFile, "M=M-1") #SP=SP-1
 end
 
 function handleOr()
     global outFile
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "D=M")
-    println(outFile, "A=A-1")
-    println(outFile, "M=D|M")
-    println(outFile, "@SP")
-    println(outFile, "M=M-1")
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "D=M") #D=RAM[A]
+    println(outFile, "A=A-1") #A=A-1
+    println(outFile, "M=D|M") #RAM[A]=D|M
+    println(outFile, "@SP") #A=SP
+    println(outFile, "M=M-1") #SP=SP-1
 end
 
 function handleNot()
     global outFile
-    println(outFile, "@SP")
-    println(outFile, "A=M-1")
-    println(outFile, "M=!M")
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M-1") #A=RAM[A]-1
+    println(outFile, "M=!M") #RAM[A]=!RAM[A]
 end
+
 
 # start of main program
 
@@ -341,9 +345,14 @@ for file in files
         # read file line by line
         for line in eachline(inputFile)
             
-            lineWithoutComments = split(line, "//")[1]
-    
+            lineWithoutComments = first(split(line, "//"))
             cleanLine = strip(lineWithoutComments)
+            if isempty(cleanLine)
+                continue
+            end
+
+            # print the original VM command as a comment
+            println(outFile, "// ", cleanLine)  # ← זו השורה החדשה
 
             words = split(cleanLine)
 
