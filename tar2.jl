@@ -508,6 +508,20 @@ function writeBootstrap()
     handleCall("Sys.init", 0) #calls Sys.init with 0 arguments
 end
 
+function handlePushFromTry(index)
+    global outFile
+
+    # from_try base address is 16 (static-like area)
+    println(outFile, "@$(16 + index)") #A=16+index (e.g., index=3 → address 19)
+    println(outFile, "D=M") #D=RAM[A] (value from static area)
+
+    println(outFile, "@SP") #A=SP
+    println(outFile, "A=M") #A=RAM[SP]
+    println(outFile, "M=D") #RAM[SP]=D (push value)
+    println(outFile, "@SP") #A=SP
+    println(outFile, "M=M+1") #SP=SP+1
+end
+
 # start of main program
 
 println("Enter folder path:")
@@ -602,9 +616,14 @@ for file in files
                 handleNot()
 
             elseif command == "push"
-                segment = words[2]
-                index = parse(Int, words[3])
-                handlePush(segment, index, fileNameWithoutExtension)
+                if words[2] == "from_try"
+                    index = parse(Int, words[3])
+                    handlePushFromTry(index)
+                else
+                    segment = words[2]
+                    index = parse(Int, words[3])
+                    handlePush(segment, index, fileNameWithoutExtension)
+                end
 
             elseif command == "pop"
                 segment = words[2]

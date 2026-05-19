@@ -1,0 +1,21 @@
+// A - הכנסת ערכים לזיכרון
+push constant 2
+pop argument 2
+
+push constant 8
+neg
+pop local 4
+
+push constant 7
+pop temp 0
+
+// B - דחיפה למחסנית
+push constant 10
+push local 4
+push temp 0
+
+// C - הפקודה החדשה
+push from_try 3
+
+// D - השמה
+pop argument 3
