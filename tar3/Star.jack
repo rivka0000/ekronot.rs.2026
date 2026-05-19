@@ -17,12 +17,14 @@ class Star {
         var int h;
         var int q;
 
+        // Calculates half and quarter of the star size
         let h = Math.divide(size, 2);
         let q = Math.divide(size, 4);
 
         do Screen.setColor(true);
 
         if (rotation = 0) {
+            // Draws the star facing up
             do Screen.drawLine(x, y - size, x + q, y - h);
             do Screen.drawLine(x + q, y - h, x + size, y - h);
             do Screen.drawLine(x + size, y - h, x + h, y);
@@ -36,6 +38,7 @@ class Star {
         }
 
         if (rotation = 90) {
+            // Draws the star rotated to the right
             do Screen.drawLine(x + size, y, x + h, y + q);
             do Screen.drawLine(x + h, y + q, x + h, y + size);
             do Screen.drawLine(x + h, y + size, x, y + h);
@@ -49,6 +52,7 @@ class Star {
         }
 
         if (rotation = 180) {
+            // Draws the star upside down
             do Screen.drawLine(x, y + size, x - q, y + h);
             do Screen.drawLine(x - q, y + h, x - size, y + h);
             do Screen.drawLine(x - size, y + h, x - h, y);
@@ -62,6 +66,7 @@ class Star {
         }
 
         if (rotation = 270) {
+            // Draws the star rotated to the left
             do Screen.drawLine(x - size, y, x - h, y - q);
             do Screen.drawLine(x - h, y - q, x - h, y - size);
             do Screen.drawLine(x - h, y - size, x, y - h);
@@ -89,11 +94,13 @@ class Star {
         let y2 = Math.min(255, y + offset);
 
         do Screen.setColor(false);
+        // Erases the star area before moving or changing it
         do Screen.drawRectangle(x1, y1, x2, y2);
         return;
     }
 
     method void moveRight() {
+        // Moves the star right if it stays inside the screen
         if ((x + size + 5) < 511) {
             do erase();
             let x = x + 10;
@@ -103,6 +110,7 @@ class Star {
     }
 
     method void moveLeft() {
+        // Moves the star left if it stays inside the screen
         if ((x - size - 5) > 0) {
             do erase();
             let x = x - 10;
@@ -112,6 +120,7 @@ class Star {
     }
 
     method void moveUp() {
+        // Moves the star up if it stays inside the screen
         if ((y - size - 5) > 0) {
             do erase();
             let y = y - 10;
@@ -121,6 +130,7 @@ class Star {
     }
 
     method void moveDown() {
+        // Moves the star down if it stays inside the screen
         if ((y + size + 5) < 255) {
             do erase();
             let y = y + 10;
@@ -130,6 +140,7 @@ class Star {
     }
 
     method void grow() {
+        // Makes the star bigger
         do erase();
         let size = Math.multiply(size, 2);
 
@@ -142,6 +153,7 @@ class Star {
     }
 
     method void shrink() {
+        // Makes the star smaller
         if (size > 15) {
             do erase();
             let size = Math.divide(size, 2);
@@ -151,6 +163,7 @@ class Star {
     }
 
     method void rotate() {
+        // Rotates the star by 90 degrees
         do erase();
         let rotation = rotation + 90;
 

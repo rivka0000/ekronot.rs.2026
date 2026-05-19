@@ -7,7 +7,7 @@ class Main {
         var int key;
         var boolean running;
 
-        // הוספת שני מונים נפרדים לפי ההוראות
+        // Adds two separate counters according to the instructions
         var int rocketActions;
         var int starActions;
 
@@ -38,55 +38,55 @@ class Main {
 
             if (~(key = 0)) {
 
-                if (key = 82) { let selected = 1; }   // R
-                if (key = 114) { let selected = 1; }  // r
+                if (key = 82) { let selected = 1; }   // Select Rocket with uppercase R
+                if (key = 114) { let selected = 1; }  // Select Rocket with lowercase r
 
-                if (key = 83) { let selected = 2; }   // S
-                if (key = 115) { let selected = 2; }  // s
+                if (key = 83) { let selected = 2; }   // Select Star with uppercase S
+                if (key = 115) { let selected = 2; }  // Select Star with lowercase s
 
                 if (selected = 1) {
-                    if (key = 87) { do rocket.moveUp(); let rocketActions = rocketActions + 1; }     // W
-                    if (key = 119) { do rocket.moveUp(); let rocketActions = rocketActions + 1; }    // w
+                    if (key = 87) { do rocket.moveUp(); let rocketActions = rocketActions + 1; }     // Move Rocket up with W
+                    if (key = 119) { do rocket.moveUp(); let rocketActions = rocketActions + 1; }    // Move Rocket up with w
 
-                    if (key = 88) { do rocket.moveDown(); let rocketActions = rocketActions + 1; }   // X
-                    if (key = 120) { do rocket.moveDown(); let rocketActions = rocketActions + 1; }  // x
+                    if (key = 88) { do rocket.moveDown(); let rocketActions = rocketActions + 1; }   // Move Rocket down with X
+                    if (key = 120) { do rocket.moveDown(); let rocketActions = rocketActions + 1; }  // Move Rocket down with x
 
-                    if (key = 65) { do rocket.moveLeft(); let rocketActions = rocketActions + 1; }   // A
-                    if (key = 97) { do rocket.moveLeft(); let rocketActions = rocketActions + 1; }   // a
+                    if (key = 65) { do rocket.moveLeft(); let rocketActions = rocketActions + 1; }   // Move Rocket left with A
+                    if (key = 97) { do rocket.moveLeft(); let rocketActions = rocketActions + 1; }   // Move Rocket left with a
 
-                    if (key = 68) { do rocket.moveRight(); let rocketActions = rocketActions + 1; }  // D
-                    if (key = 100) { do rocket.moveRight(); let rocketActions = rocketActions + 1; } // d
+                    if (key = 68) { do rocket.moveRight(); let rocketActions = rocketActions + 1; }  // Move Rocket right with D
+                    if (key = 100) { do rocket.moveRight(); let rocketActions = rocketActions + 1; } // Move Rocket right with d
 
-                    if (key = 43) { do rocket.grow(); let rocketActions = rocketActions + 1; }       // +
-                    if (key = 45) { do rocket.shrink(); let rocketActions = rocketActions + 1; }     // -
-                    if (key = 81) { do rocket.rotate(); let rocketActions = rocketActions + 1; }     // Q
-                    if (key = 113) { do rocket.rotate(); let rocketActions = rocketActions + 1; }    // q
+                    if (key = 43) { do rocket.grow(); let rocketActions = rocketActions + 1; }       // Make Rocket bigger with +
+                    if (key = 45) { do rocket.shrink(); let rocketActions = rocketActions + 1; }     // Make Rocket smaller with -
+                    if (key = 81) { do rocket.rotate(); let rocketActions = rocketActions + 1; }     // Rotate Rocket with Q
+                    if (key = 113) { do rocket.rotate(); let rocketActions = rocketActions + 1; }    // Rotate Rocket with q
                 }
 
                 if (selected = 2) {
-                    if (key = 87) { do star.moveUp(); let starActions = starActions + 1; }
-                    if (key = 119) { do star.moveUp(); let starActions = starActions + 1; }
+                    if (key = 87) { do star.moveUp(); let starActions = starActions + 1; }           // Move Star up with W
+                    if (key = 119) { do star.moveUp(); let starActions = starActions + 1; }          // Move Star up with w
 
-                    if (key = 88) { do star.moveDown(); let starActions = starActions + 1; }
-                    if (key = 120) { do star.moveDown(); let starActions = starActions + 1; }
+                    if (key = 88) { do star.moveDown(); let starActions = starActions + 1; }         // Move Star down with X
+                    if (key = 120) { do star.moveDown(); let starActions = starActions + 1; }        // Move Star down with x
 
-                    if (key = 65) { do star.moveLeft(); let starActions = starActions + 1; }
-                    if (key = 97) { do star.moveLeft(); let starActions = starActions + 1; }
+                    if (key = 65) { do star.moveLeft(); let starActions = starActions + 1; }         // Move Star left with A
+                    if (key = 97) { do star.moveLeft(); let starActions = starActions + 1; }         // Move Star left with a
 
-                    if (key = 68) { do star.moveRight(); let starActions = starActions + 1; }
-                    if (key = 100) { do star.moveRight(); let starActions = starActions + 1; }
+                    if (key = 68) { do star.moveRight(); let starActions = starActions + 1; }        // Move Star right with D
+                    if (key = 100) { do star.moveRight(); let starActions = starActions + 1; }       // Move Star right with d
 
-                    if (key = 43) { do star.grow(); let starActions = starActions + 1; }
-                    if (key = 45) { do star.shrink(); let starActions = starActions + 1; }
-                    if (key = 81) { do star.rotate(); let starActions = starActions + 1; }
-                    if (key = 113) { do star.rotate(); let starActions = starActions + 1; }
+                    if (key = 43) { do star.grow(); let starActions = starActions + 1; }             // Make Star bigger with +
+                    if (key = 45) { do star.shrink(); let starActions = starActions + 1; }           // Make Star smaller with -
+                    if (key = 81) { do star.rotate(); let starActions = starActions + 1; }           // Rotate Star with Q
+                    if (key = 113) { do star.rotate(); let starActions = starActions + 1; }          // Rotate Star with q
                 }
 
-                if (key = 75) { let running = false; }   // K
-                if (key = 107) { let running = false; }  // k
+                if (key = 75) { let running = false; }   // End the program with uppercase K
+                if (key = 107) { let running = false; }  // End the program with lowercase k
 
                 while (~(Keyboard.keyPressed() = 0)) {
-                    // Wait for key release
+                    // Wait for the user to release the key
                 }
             }
         }
@@ -95,7 +95,7 @@ class Main {
         do Output.moveCursor(10, 10);
         do Output.printString("Project by Rivka and Sara");
 
-        // הדפסה לפי דרישת סעיף "סיכום" במצגת
+        // Prints the summary according to the presentation requirements
         do Output.moveCursor(12, 10);
 
         if (selected = 1) {

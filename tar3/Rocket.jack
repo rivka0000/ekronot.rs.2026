@@ -26,57 +26,57 @@ class Rocket {
         do Screen.setColor(true);
 
         if (rotation = 0) {
-            // Nose (Pointing UP)
+            // Draws the rocket nose pointing up
             do Screen.drawLine(x, y - size, x - halfSize, y);
             do Screen.drawLine(x, y - size, x + halfSize, y);
-            // Body
+            // Draws the rocket body
             do Screen.drawRectangle(x - halfSize, y, x + halfSize, y + bodySize);
-            // Wings
+            // Draws the rocket wings
             do Screen.drawLine(x - halfSize, y + size, x - size, y + bodySize);
             do Screen.drawLine(x + halfSize, y + size, x + size, y + bodySize);
-            // Flame
+            // Draws the rocket flame
             do Screen.drawLine(x - flameSize, y + bodySize, x, y + bodySize + flameSize);
             do Screen.drawLine(x + flameSize, y + bodySize, x, y + bodySize + flameSize);
         }
 
         if (rotation = 90) {
-            // Nose (Pointing RIGHT)
+            // Draws the rocket nose pointing right
             do Screen.drawLine(x + size, y, x, y - halfSize);
             do Screen.drawLine(x + size, y, x, y + halfSize);
-            // Body
+            // Draws the rocket body
             do Screen.drawRectangle(x - bodySize, y - halfSize, x, y + halfSize);
-            // Wings
+            // Draws the rocket wings
             do Screen.drawLine(x - size, y - halfSize, x - bodySize, y - size);
             do Screen.drawLine(x - size, y + halfSize, x - bodySize, y + size);
-            // Flame
+            // Draws the rocket flame
             do Screen.drawLine(x - bodySize, y - flameSize, x - bodySize - flameSize, y);
             do Screen.drawLine(x - bodySize, y + flameSize, x - bodySize - flameSize, y);
         }
 
         if (rotation = 180) {
-            // Nose (Pointing DOWN)
+            // Draws the rocket nose pointing down
             do Screen.drawLine(x, y + size, x - halfSize, y);
             do Screen.drawLine(x, y + size, x + halfSize, y);
-            // Body
+            // Draws the rocket body
             do Screen.drawRectangle(x - halfSize, y - bodySize, x + halfSize, y);
-            // Wings
+            // Draws the rocket wings
             do Screen.drawLine(x - halfSize, y - size, x - size, y - bodySize);
             do Screen.drawLine(x + halfSize, y - size, x + size, y - bodySize);
-            // Flame
+            // Draws the rocket flame
             do Screen.drawLine(x - flameSize, y - bodySize, x, y - bodySize - flameSize);
             do Screen.drawLine(x + flameSize, y - bodySize, x, y - bodySize - flameSize);
         }
 
         if (rotation = 270) {
-            // Nose (Pointing LEFT)
+            // Draws the rocket nose pointing left
             do Screen.drawLine(x - size, y, x, y - halfSize);
             do Screen.drawLine(x - size, y, x, y + halfSize);
-            // Body
+            // Draws the rocket body
             do Screen.drawRectangle(x, y - halfSize, x + bodySize, y + halfSize);
-            // Wings
+            // Draws the rocket wings
             do Screen.drawLine(x + size, y - halfSize, x + bodySize, y - size);
             do Screen.drawLine(x + size, y + halfSize, x + bodySize, y + size);
-            // Flame
+            // Draws the rocket flame
             do Screen.drawLine(x + bodySize, y - flameSize, x + bodySize + flameSize, y);
             do Screen.drawLine(x + bodySize, y + flameSize, x + bodySize + flameSize, y);
         }
@@ -96,12 +96,14 @@ class Rocket {
         let y2 = Math.min(255, y + offset);
 
         do Screen.setColor(false);
+        // Erases the rocket area before moving or changing it
         do Screen.drawRectangle(x1, y1, x2, y2);
 
         return;
     }
 
     method void moveRight() {
+        // Moves the rocket right if it stays inside the screen
         if ((x + Math.multiply(size, 2) + 15) < 511) {
             do erase();
             let x = x + 10;
@@ -111,6 +113,7 @@ class Rocket {
     }
 
     method void moveLeft() {
+        // Moves the rocket left if it stays inside the screen
         if ((x - Math.multiply(size, 2) - 15) > 0) {
             do erase();
             let x = x - 10;
@@ -120,6 +123,7 @@ class Rocket {
     }
 
     method void moveUp() {
+        // Moves the rocket up if it stays inside the screen
         if ((y - Math.multiply(size, 2) - 15) > 0) {
             do erase();
             let y = y - 10;
@@ -129,6 +133,7 @@ class Rocket {
     }
 
     method void moveDown() {
+        // Moves the rocket down if it stays inside the screen
         if ((y + Math.multiply(size, 2) + 15) < 255) {
             do erase();
             let y = y + 10;
@@ -138,6 +143,7 @@ class Rocket {
     }
 
     method void grow() {
+        // Makes the rocket bigger
         do erase();
         let size = Math.multiply(size, 2);
 
@@ -150,6 +156,7 @@ class Rocket {
     }
 
     method void shrink() {
+        // Makes the rocket smaller
         if (size > 15) {
             do erase();
             let size = Math.divide(size, 2);
@@ -159,6 +166,7 @@ class Rocket {
     }
 
     method void rotate() {
+        // Rotates the rocket by 90 degrees
         do erase();
         let rotation = rotation + 90;
 
