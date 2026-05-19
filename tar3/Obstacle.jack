@@ -1,0 +1,68 @@
+class Obstacle {
+
+    // Obstacle horizontal position
+    field int x;
+
+    // Obstacle vertical position
+    field int y;
+
+    // Constructor - creates a new obstacle
+    constructor Obstacle new() {
+
+        // Initial X position
+        let x = 100;
+
+        // Initial Y position (top of screen)
+        let y = 0;
+
+        return this;
+    }
+
+    // Moves the obstacle downward
+    method void move() {
+
+        // Increase Y position to move down
+        let y = y + 15;
+
+        // Check if obstacle reached bottom area
+        if (y > 210) {
+
+            // Reset obstacle to top of screen
+            let y = 0;
+
+            // Change obstacle horizontal position
+            let x = x + 40;
+
+            // If obstacle goes beyond screen width
+            if (x > 440) {
+
+                // Return obstacle to starting X position
+                let x = 20;
+            }
+        }
+
+        return;
+    }
+
+    // Draws the obstacle on the screen
+    method void draw() {
+
+        // Set drawing color to black
+        do Screen.setColor(true);
+
+        // Draw obstacle as a square
+        do Screen.drawRectangle(x, y, x + 20, y + 20);
+
+        return;
+    }
+
+    // Returns obstacle X position
+    method int getX() {
+        return x;
+    }
+
+    // Returns obstacle Y position
+    method int getY() {
+        return y;
+    }
+}

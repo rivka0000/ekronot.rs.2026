@@ -1,0 +1,76 @@
+class Player {
+
+    // Player horizontal position
+    field int x;
+
+    // Player vertical position
+    field int y;
+
+    // Constructor - creates a new player
+    constructor Player new() {
+
+        // Initial X position
+        let x = 230;
+
+        // Initial Y position
+        let y = 220;
+
+        return this;
+    }
+
+    // Handles player movement
+    method void move() {
+
+        // Variable to store keyboard input
+        var char key;
+
+        // Read the currently pressed key
+        let key = Keyboard.keyPressed();
+
+        // Left arrow key pressed
+        if (key = 130) {
+
+            // Prevent moving outside left screen border
+            if (x > 0) {
+
+                // Move player left
+                let x = x - 15;
+            }
+        }
+
+        // Right arrow key pressed
+        if (key = 132) {
+
+            // Prevent moving outside right screen border
+            if (x < 460) {
+
+                // Move player right
+                let x = x + 15;
+            }
+        }
+
+        return;
+    }
+
+    // Draws the player on the screen
+    method void draw() {
+
+        // Set drawing color to black
+        do Screen.setColor(true);
+
+        // Draw the player as a rectangle
+        do Screen.drawRectangle(x, y, x + 50, y + 10);
+
+        return;
+    }
+
+    // Returns the player's X position
+    method int getX() {
+        return x;
+    }
+
+    // Returns the player's Y position
+    method int getY() {
+        return y;
+    }
+}

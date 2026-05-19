@@ -1,0 +1,128 @@
+class Game {
+
+     // The player object
+     field Player player;
+
+     // The obstacle object
+     field Obstacle obstacle;
+
+     // Indicates whether the game has ended
+     field boolean gameOver;
+
+     // Constructor - creates a new game
+     constructor Game new() {
+
+         // Initialize the game objects and variables
+         do resetGame();
+
+         return this;
+     }
+
+     // Resets the game state
+     method void resetGame() {
+
+         // Create a new player
+         let player = Player.new();
+
+         // Create a new obstacle
+         let obstacle = Obstacle.new();
+
+         // Set game state to active
+         let gameOver = false;
+
+         return;
+     }
+
+     // Main game loop
+     method void run() {
+
+         // Variable for keyboard input
+         var char key;
+
+         // Infinite loop to keep restarting the game
+         while (true) {
+
+             // Runs while the game is not over
+             while (~gameOver) {
+
+                 // Clear the screen before drawing new frame
+                 do Screen.clearScreen();
+
+                 // Move the player according to input
+                 do player.move();
+
+                 // Move the obstacle downward
+                 do obstacle.move();
+
+                 // Check if the player collided with the obstacle
+                 if (Game.checkCollision(player.getX(), player.getY(),
+                                         obstacle.getX(), obstacle.getY())) {
+
+                     // End the game if collision happens
+                     let gameOver = true;
+                 }
+
+                 // Draw the player on screen
+                 do player.draw();
+
+                 // Draw the obstacle on screen
+                 do obstacle.draw();
+
+                 // Small delay to control game speed
+                 do Sys.wait(25);
+             }
+
+             // Clear the screen after game over
+             do Screen.clearScreen();
+
+             // Print "GAME OVER" message
+             do Output.moveCursor(10, 18);
+             do Output.printString("GAME OVER");
+
+             // Print restart instruction
+             do Output.moveCursor(12, 10);
+             do Output.printString("PRESS ANY KEY");
+
+             // Reset key variable
+             let key = 0;
+
+             // Wait until the player presses a key
+             while (key = 0) {
+                 let key = Keyboard.keyPressed();
+             }
+
+             // Restart the game
+             do resetGame();
+         }
+
+         return;
+     }
+
+     // Checks if the player and obstacle overlap
+     function boolean checkCollision(int px, int py,
+                                     int ox, int oy) {
+
+         // Obstacle is completely to the right of player
+         if (ox > (px + 50)) {
+             return false;
+         }
+
+         // Obstacle is completely to the left of player
+         if ((ox + 20) < px) {
+             return false;
+         }
+
+         // Obstacle is completely below player
+         if (oy > (py + 10)) {
+             return false;
+         }
+
+         // Obstacle is completely above player
+         if ((oy + 20) < py) {
+             return false;
+         }
+
+         // Objects overlap -> collision detected
+         return true;
+     }
+ }
