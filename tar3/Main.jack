@@ -1,0 +1,118 @@
+class Main {
+
+    function void main() {
+        var Rocket rocket;
+        var Star star;
+        var int selected;
+        var int key;
+        var boolean running;
+
+        // הוספת שני מונים נפרדים לפי ההוראות
+        var int rocketActions;
+        var int starActions;
+
+        do Screen.clearScreen();
+
+        let rocket = Rocket.new(100, 160);
+        let star = Star.new(320, 160);
+
+        let selected = 1;
+        let running = true;
+
+        let rocketActions = 0;
+        let starActions = 0;
+
+        do rocket.draw();
+        do star.draw();
+
+        do Output.moveCursor(0, 0);
+        do Output.printString("r Rocket | s Star");
+        do Output.moveCursor(1, 0);
+        do Output.printString("w up x down a left d right");
+        do Output.moveCursor(2, 0);
+        do Output.printString("+ grow - shrink q rotate k end");
+
+        while (running) {
+
+            let key = Keyboard.keyPressed();
+
+            if (~(key = 0)) {
+
+                if (key = 82) { let selected = 1; }   // R
+                if (key = 114) { let selected = 1; }  // r
+
+                if (key = 83) { let selected = 2; }   // S
+                if (key = 115) { let selected = 2; }  // s
+
+                if (selected = 1) {
+                    if (key = 87) { do rocket.moveUp(); let rocketActions = rocketActions + 1; }     // W
+                    if (key = 119) { do rocket.moveUp(); let rocketActions = rocketActions + 1; }    // w
+
+                    if (key = 88) { do rocket.moveDown(); let rocketActions = rocketActions + 1; }   // X
+                    if (key = 120) { do rocket.moveDown(); let rocketActions = rocketActions + 1; }  // x
+
+                    if (key = 65) { do rocket.moveLeft(); let rocketActions = rocketActions + 1; }   // A
+                    if (key = 97) { do rocket.moveLeft(); let rocketActions = rocketActions + 1; }   // a
+
+                    if (key = 68) { do rocket.moveRight(); let rocketActions = rocketActions + 1; }  // D
+                    if (key = 100) { do rocket.moveRight(); let rocketActions = rocketActions + 1; } // d
+
+                    if (key = 43) { do rocket.grow(); let rocketActions = rocketActions + 1; }       // +
+                    if (key = 45) { do rocket.shrink(); let rocketActions = rocketActions + 1; }     // -
+                    if (key = 81) { do rocket.rotate(); let rocketActions = rocketActions + 1; }     // Q
+                    if (key = 113) { do rocket.rotate(); let rocketActions = rocketActions + 1; }    // q
+                }
+
+                if (selected = 2) {
+                    if (key = 87) { do star.moveUp(); let starActions = starActions + 1; }
+                    if (key = 119) { do star.moveUp(); let starActions = starActions + 1; }
+
+                    if (key = 88) { do star.moveDown(); let starActions = starActions + 1; }
+                    if (key = 120) { do star.moveDown(); let starActions = starActions + 1; }
+
+                    if (key = 65) { do star.moveLeft(); let starActions = starActions + 1; }
+                    if (key = 97) { do star.moveLeft(); let starActions = starActions + 1; }
+
+                    if (key = 68) { do star.moveRight(); let starActions = starActions + 1; }
+                    if (key = 100) { do star.moveRight(); let starActions = starActions + 1; }
+
+                    if (key = 43) { do star.grow(); let starActions = starActions + 1; }
+                    if (key = 45) { do star.shrink(); let starActions = starActions + 1; }
+                    if (key = 81) { do star.rotate(); let starActions = starActions + 1; }
+                    if (key = 113) { do star.rotate(); let starActions = starActions + 1; }
+                }
+
+                if (key = 75) { let running = false; }   // K
+                if (key = 107) { let running = false; }  // k
+
+                while (~(Keyboard.keyPressed() = 0)) {
+                    // Wait for key release
+                }
+            }
+        }
+
+        do Screen.clearScreen();
+        do Output.moveCursor(10, 10);
+        do Output.printString("Project by Rivka and Sara");
+
+        // הדפסה לפי דרישת סעיף "סיכום" במצגת
+        do Output.moveCursor(12, 10);
+
+        if (selected = 1) {
+            do Output.printString("Selected Object: Rocket");
+            do Output.moveCursor(14, 10);
+            do Output.printString("Actions performed on it: ");
+            do Output.printInt(rocketActions);
+        }
+
+        if (selected = 2) {
+            do Output.printString("Selected Object: Star");
+            do Output.moveCursor(14, 10);
+            do Output.printString("Actions performed on it: ");
+            do Output.printInt(starActions);
+        }
+
+        do Sys.halt();
+        return;
+    }
+}

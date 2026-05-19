@@ -1,0 +1,164 @@
+class Star {
+
+    field int x;
+    field int y;
+    field int size;
+    field int rotation;
+
+    constructor Star new(int startX, int startY) {
+        let x = startX;
+        let y = startY;
+        let size = 30;
+        let rotation = 0;
+        return this;
+    }
+
+    method void draw() {
+        var int h;
+        var int q;
+
+        let h = Math.divide(size, 2);
+        let q = Math.divide(size, 4);
+
+        do Screen.setColor(true);
+
+        if (rotation = 0) {
+            do Screen.drawLine(x, y - size, x + q, y - h);
+            do Screen.drawLine(x + q, y - h, x + size, y - h);
+            do Screen.drawLine(x + size, y - h, x + h, y);
+            do Screen.drawLine(x + h, y, x + h, y + size);
+            do Screen.drawLine(x + h, y + size, x, y + h);
+            do Screen.drawLine(x, y + h, x - h, y + size);
+            do Screen.drawLine(x - h, y + size, x - h, y);
+            do Screen.drawLine(x - h, y, x - size, y - h);
+            do Screen.drawLine(x - size, y - h, x - q, y - h);
+            do Screen.drawLine(x - q, y - h, x, y - size);
+        }
+
+        if (rotation = 90) {
+            do Screen.drawLine(x + size, y, x + h, y + q);
+            do Screen.drawLine(x + h, y + q, x + h, y + size);
+            do Screen.drawLine(x + h, y + size, x, y + h);
+            do Screen.drawLine(x, y + h, x - size, y + h);
+            do Screen.drawLine(x - size, y + h, x - h, y);
+            do Screen.drawLine(x - h, y, x - size, y - h);
+            do Screen.drawLine(x - size, y - h, x, y - h);
+            do Screen.drawLine(x, y - h, x + h, y - size);
+            do Screen.drawLine(x + h, y - size, x + h, y - q);
+            do Screen.drawLine(x + h, y - q, x + size, y);
+        }
+
+        if (rotation = 180) {
+            do Screen.drawLine(x, y + size, x - q, y + h);
+            do Screen.drawLine(x - q, y + h, x - size, y + h);
+            do Screen.drawLine(x - size, y + h, x - h, y);
+            do Screen.drawLine(x - h, y, x - h, y - size);
+            do Screen.drawLine(x - h, y - size, x, y - h);
+            do Screen.drawLine(x, y - h, x + h, y - size);
+            do Screen.drawLine(x + h, y - size, x + h, y);
+            do Screen.drawLine(x + h, y, x + size, y + h);
+            do Screen.drawLine(x + size, y + h, x + q, y + h);
+            do Screen.drawLine(x + q, y + h, x, y + size);
+        }
+
+        if (rotation = 270) {
+            do Screen.drawLine(x - size, y, x - h, y - q);
+            do Screen.drawLine(x - h, y - q, x - h, y - size);
+            do Screen.drawLine(x - h, y - size, x, y - h);
+            do Screen.drawLine(x, y - h, x + size, y - h);
+            do Screen.drawLine(x + size, y - h, x + h, y);
+            do Screen.drawLine(x + h, y, x + size, y + h);
+            do Screen.drawLine(x + size, y + h, x, y + h);
+            do Screen.drawLine(x, y + h, x - h, y + size);
+            do Screen.drawLine(x - h, y + size, x - h, y + q);
+            do Screen.drawLine(x - h, y + q, x - size, y);
+        }
+
+        return;
+    }
+
+    method void erase() {
+        var int offset;
+        var int x1, y1, x2, y2;
+
+        let offset = Math.multiply(size, 2);
+
+        let x1 = Math.max(0, x - offset);
+        let y1 = Math.max(0, y - offset);
+        let x2 = Math.min(511, x + offset);
+        let y2 = Math.min(255, y + offset);
+
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x1, y1, x2, y2);
+        return;
+    }
+
+    method void moveRight() {
+        if ((x + size + 5) < 511) {
+            do erase();
+            let x = x + 10;
+            do draw();
+        }
+        return;
+    }
+
+    method void moveLeft() {
+        if ((x - size - 5) > 0) {
+            do erase();
+            let x = x - 10;
+            do draw();
+        }
+        return;
+    }
+
+    method void moveUp() {
+        if ((y - size - 5) > 0) {
+            do erase();
+            let y = y - 10;
+            do draw();
+        }
+        return;
+    }
+
+    method void moveDown() {
+        if ((y + size + 5) < 255) {
+            do erase();
+            let y = y + 10;
+            do draw();
+        }
+        return;
+    }
+
+    method void grow() {
+        do erase();
+        let size = Math.multiply(size, 2);
+
+        if (size > 50) {
+            let size = 50;
+        }
+
+        do draw();
+        return;
+    }
+
+    method void shrink() {
+        if (size > 15) {
+            do erase();
+            let size = Math.divide(size, 2);
+            do draw();
+        }
+        return;
+    }
+
+    method void rotate() {
+        do erase();
+        let rotation = rotation + 90;
+
+        if (rotation = 360) {
+            let rotation = 0;
+        }
+
+        do draw();
+        return;
+    }
+}

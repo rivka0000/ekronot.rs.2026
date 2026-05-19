@@ -1,0 +1,172 @@
+class Rocket {
+
+    field int x;
+    field int y;
+
+    field int size;
+    field int rotation;
+
+    constructor Rocket new(int startX, int startY) {
+        let x = startX;
+        let y = startY;
+        let size = 25;
+        let rotation = 0;
+        return this;
+    }
+
+    method void draw() {
+        var int halfSize;
+        var int bodySize;
+        var int flameSize;
+
+        let halfSize = Math.divide(size, 2);
+        let bodySize = Math.multiply(size, 2);
+        let flameSize = Math.divide(size, 3);
+
+        do Screen.setColor(true);
+
+        if (rotation = 0) {
+            // Nose (Pointing UP)
+            do Screen.drawLine(x, y - size, x - halfSize, y);
+            do Screen.drawLine(x, y - size, x + halfSize, y);
+            // Body
+            do Screen.drawRectangle(x - halfSize, y, x + halfSize, y + bodySize);
+            // Wings
+            do Screen.drawLine(x - halfSize, y + size, x - size, y + bodySize);
+            do Screen.drawLine(x + halfSize, y + size, x + size, y + bodySize);
+            // Flame
+            do Screen.drawLine(x - flameSize, y + bodySize, x, y + bodySize + flameSize);
+            do Screen.drawLine(x + flameSize, y + bodySize, x, y + bodySize + flameSize);
+        }
+
+        if (rotation = 90) {
+            // Nose (Pointing RIGHT)
+            do Screen.drawLine(x + size, y, x, y - halfSize);
+            do Screen.drawLine(x + size, y, x, y + halfSize);
+            // Body
+            do Screen.drawRectangle(x - bodySize, y - halfSize, x, y + halfSize);
+            // Wings
+            do Screen.drawLine(x - size, y - halfSize, x - bodySize, y - size);
+            do Screen.drawLine(x - size, y + halfSize, x - bodySize, y + size);
+            // Flame
+            do Screen.drawLine(x - bodySize, y - flameSize, x - bodySize - flameSize, y);
+            do Screen.drawLine(x - bodySize, y + flameSize, x - bodySize - flameSize, y);
+        }
+
+        if (rotation = 180) {
+            // Nose (Pointing DOWN)
+            do Screen.drawLine(x, y + size, x - halfSize, y);
+            do Screen.drawLine(x, y + size, x + halfSize, y);
+            // Body
+            do Screen.drawRectangle(x - halfSize, y - bodySize, x + halfSize, y);
+            // Wings
+            do Screen.drawLine(x - halfSize, y - size, x - size, y - bodySize);
+            do Screen.drawLine(x + halfSize, y - size, x + size, y - bodySize);
+            // Flame
+            do Screen.drawLine(x - flameSize, y - bodySize, x, y - bodySize - flameSize);
+            do Screen.drawLine(x + flameSize, y - bodySize, x, y - bodySize - flameSize);
+        }
+
+        if (rotation = 270) {
+            // Nose (Pointing LEFT)
+            do Screen.drawLine(x - size, y, x, y - halfSize);
+            do Screen.drawLine(x - size, y, x, y + halfSize);
+            // Body
+            do Screen.drawRectangle(x, y - halfSize, x + bodySize, y + halfSize);
+            // Wings
+            do Screen.drawLine(x + size, y - halfSize, x + bodySize, y - size);
+            do Screen.drawLine(x + size, y + halfSize, x + bodySize, y + size);
+            // Flame
+            do Screen.drawLine(x + bodySize, y - flameSize, x + bodySize + flameSize, y);
+            do Screen.drawLine(x + bodySize, y + flameSize, x + bodySize + flameSize, y);
+        }
+
+        return;
+    }
+
+    method void erase() {
+        var int offset;
+        var int x1, y1, x2, y2;
+
+        let offset = Math.multiply(size, 3);
+
+        let x1 = Math.max(0, x - offset);
+        let y1 = Math.max(0, y - offset);
+        let x2 = Math.min(511, x + offset);
+        let y2 = Math.min(255, y + offset);
+
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x1, y1, x2, y2);
+
+        return;
+    }
+
+    method void moveRight() {
+        if ((x + Math.multiply(size, 2) + 15) < 511) {
+            do erase();
+            let x = x + 10;
+            do draw();
+        }
+        return;
+    }
+
+    method void moveLeft() {
+        if ((x - Math.multiply(size, 2) - 15) > 0) {
+            do erase();
+            let x = x - 10;
+            do draw();
+        }
+        return;
+    }
+
+    method void moveUp() {
+        if ((y - Math.multiply(size, 2) - 15) > 0) {
+            do erase();
+            let y = y - 10;
+            do draw();
+        }
+        return;
+    }
+
+    method void moveDown() {
+        if ((y + Math.multiply(size, 2) + 15) < 255) {
+            do erase();
+            let y = y + 10;
+            do draw();
+        }
+        return;
+    }
+
+    method void grow() {
+        do erase();
+        let size = Math.multiply(size, 2);
+
+        if (size > 40) {
+            let size = 40;
+        }
+
+        do draw();
+        return;
+    }
+
+    method void shrink() {
+        if (size > 15) {
+            do erase();
+            let size = Math.divide(size, 2);
+            do draw();
+        }
+        return;
+    }
+
+    method void rotate() {
+        do erase();
+        let rotation = rotation + 90;
+
+        if (rotation = 360) {
+            let rotation = 0;
+        }
+
+        do draw();
+        return;
+    }
+}
