@@ -319,12 +319,33 @@ end
 function compile_do!(engine::CompilationEngine)
     process!(engine, "do")
 
-    first_name = process_type!(engine, IDENTIFIER)
-    compile_subroutine_call!(engine, first_name)
+    # New command: do { statements } while (expression);
+    if engine.tokenizer.current_token == "{"
+        start_label = new_label!(engine, "DO_WHILE_EXP")
 
-    write_pop!(engine.vm_writer, "temp", 0)
+        write_label!(engine.vm_writer, start_label)
 
-    process!(engine, ";")
+        process!(engine, "{")
+        compile_statements!(engine)
+        process!(engine, "}")
+
+        process!(engine, "while")
+        process!(engine, "(")
+        compile_expression!(engine)
+        process!(engine, ")")
+        process!(engine, ";")
+
+        write_if!(engine.vm_writer, start_label)
+
+    # Existing command: do subroutineCall;
+    else
+        first_name = process_type!(engine, IDENTIFIER)
+        compile_subroutine_call!(engine, first_name)
+
+        write_pop!(engine.vm_writer, "temp", 0)
+
+        process!(engine, ";")
+    end
 end
 
 # Compiles a return statement.
