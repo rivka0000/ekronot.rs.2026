@@ -438,7 +438,7 @@ end
 function compile_expression!(engine::CompilationEngine)
     compile_term!(engine)
 
-    ops = ["+", "-", "*", "/", "&amp;", "|", "&lt;", "&gt;", "=", "$"]
+    ops = ["+", "-", "*", "/", "&amp;", "|", "&lt;", "&gt;", "=", raw"$"]
 
     while in(engine.tokenizer.current_token, ops)
         op = engine.tokenizer.current_token
@@ -446,7 +446,7 @@ function compile_expression!(engine::CompilationEngine)
 
         compile_term!(engine)
 
-        if op == "+" || op == "$"
+        if op == "+" || op == raw"$"
             write_arithmetic!(engine.vm_writer, "add")
         elseif op == "-"
             write_arithmetic!(engine.vm_writer, "sub")
