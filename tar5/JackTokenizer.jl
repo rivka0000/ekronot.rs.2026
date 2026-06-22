@@ -14,12 +14,12 @@ const STRING_CONST    = "stringConstant"
 const JACK_KEYWORDS = Set([
     "class", "constructor", "function", "method", "field", "static", "var",
     "int", "char", "boolean", "void", "true", "false", "null", "this",
-    "let", "do", "if", "else", "while", "return"
+    "let", "do", "if", "else", "while", "return", "procedure"
 ])
 
 const JACK_SYMBOLS = Set([
     '{', '}', '(', ')', '[', ']', '.', ',', ';',
-    '+', '-', '*', '/', '&', '|', '<', '>', '=', '~'
+    '+', '-', '*', '/', '&', '|', '<', '>', '=', '~', '$'
 ])
 
 # 3. Data structure to manage the tokenizer state (holds text, position, and current token)

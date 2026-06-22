@@ -73,7 +73,8 @@ function compile_class!(engine::CompilationEngine)
 
     while engine.tokenizer.current_token == "constructor" ||
           engine.tokenizer.current_token == "function" ||
-          engine.tokenizer.current_token == "method"
+          engine.tokenizer.current_token == "method" ||
+          engine.tokenizer.current_token == "procedure"
         compile_subroutine!(engine)
     end
 
@@ -416,7 +417,7 @@ end
 function compile_expression!(engine::CompilationEngine)
     compile_term!(engine)
 
-    ops = ["+", "-", "*", "/", "&amp;", "|", "&lt;", "&gt;", "="]
+    ops = ["+", "-", "*", "/", "&amp;", "|", "&lt;", "&gt;", "=", "$"]
 
     while in(engine.tokenizer.current_token, ops)
         op = engine.tokenizer.current_token
@@ -424,7 +425,7 @@ function compile_expression!(engine::CompilationEngine)
 
         compile_term!(engine)
 
-        if op == "+"
+        if op == "+" || op == "$"
             write_arithmetic!(engine.vm_writer, "add")
         elseif op == "-"
             write_arithmetic!(engine.vm_writer, "sub")
